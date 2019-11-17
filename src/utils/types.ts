@@ -13,4 +13,4 @@ type ActionCreatorsMapObject = {
 
 export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>;
 
-export type Object = { [key: string]: any };
+export type Object<T> = { [key: string]: T };

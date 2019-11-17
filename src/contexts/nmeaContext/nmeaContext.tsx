@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useCallback } from 'react';
 import {
- INmeaContext, INmeaState, ActionTypes, NmeaProps
+    INmeaContext, INmeaState, ActionTypes, NmeaProps
 } from './nmeaTypes';
 import { NmeaActions } from './nmeaActions';
 
@@ -39,16 +39,13 @@ const NmeaProvider = ({ children, url }: NmeaProps) => {
         };
 
         ws.onerror = (error) => {
-            console.warn('Socket encountered an error, closing socket');
             dispatch(NmeaActions.setConnected(false));
             ws.close();
         };
 
         ws.onclose = (error) => {
-            console.warn('refreshing');
-            console.warn(error);
-            // refresh connection after 5s
-            setTimeout(() => connectWebsocket(), 5000);
+            // refresh connection after 10s
+            setTimeout(() => connectWebsocket(), 10000);
         };
     }, [url]);
 
