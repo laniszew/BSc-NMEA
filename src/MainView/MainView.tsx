@@ -23,8 +23,9 @@ export default function MainView() {
     const gsa = "$GPGSA,A,3,8,11,15,22,,,,,,,,,2.3,2.2,1.5*0B";
     const mwv = "$WIMWV,216.4,T,35.0,N,A*12"
     const mwv2 = "$WIMWV,142.0,R,25.4,N,A*17"
+    const mwv1 = "$WIMWV,142.0,R,25.4,N,A*17"
     const mwd = "$WIMWD,216.4,T,216.4,M,35.0,N,18.0,M*55"
-    const rmc = "$GPRMC,200914.708,A,3510.77,S,13828.03,E,11.3,63.0,101219,,,*3B"
+    const rmc = "$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A"
     const res = parseNmeaSentence(rmc);
     console.warn(res);
     return (

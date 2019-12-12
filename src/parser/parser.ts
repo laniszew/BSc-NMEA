@@ -27,7 +27,7 @@ const parsers: Object<(x: string) => any> = {
     'yyyyy.yy': (x) => ParseCommonDegrees(x),
     'hhmmss': (x) => moment(x, 'HHmmss').format("HH:mm:ss"),
     'hhmmss.ss': (x) => moment(x, 'HHmmss').format("HH:mm:ss"),
-    'ddmmyy': (x) => ParseCommonDate(x),
+    'ddmmyy': (x) => moment(x, 'DD-MM-YY').format("DD/MM/YYYY"),
     'dd/mm/yy': (x) => ParseDateSlashes(x),
     'dddmm.mmm': (x) => ParseCommonDegrees(x)
 };
@@ -59,7 +59,7 @@ export const parseNmeaSentence = (sentence: string): Packet => {
     const sentenceId = SentenceIdentifiers[fields[0].substr(3)];
 
     const formatter = SentencesFormats[sentenceId];
-
+    console.log(formatter)
     const sentenceProperties = formatter.split(',').map((format, index) => {
         if (parsers[format]) {
             return parsers[format](fields[index + 1]);
