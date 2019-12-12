@@ -7,6 +7,7 @@ import { GLLPacket, decodeGLL } from './codecs/GLL';
 import { GSAPacket, decodeGSA } from './codecs/GSA';
 import { MWVPacket, decodeMWV } from './codecs/MWV';
 import { MWDPacket, decodeMWD } from './codecs/MWD';
+import { RMCPacket, decodeRMC } from './codecs/RMC';
 
 const parsers: Object<(x: string) => any> = {
     'x': (x) => parseIntSafe(x),
@@ -31,7 +32,7 @@ const parsers: Object<(x: string) => any> = {
     'dddmm.mmm': (x) => ParseCommonDegrees(x)
 };
 
-type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket
+type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket
 
 type Decoder = (parts: string[]) => Packet;
 
@@ -40,7 +41,8 @@ const decoders: { [sentenceId: string]: Decoder } = {
     GLL: decodeGLL,
     GSA: decodeGSA,
     MWV: decodeMWV,
-    MWD: decodeMWD
+    MWD: decodeMWD,
+    RMC: decodeRMC
 };
 
 export const parseNmeaSentence = (sentence: string): Packet => {

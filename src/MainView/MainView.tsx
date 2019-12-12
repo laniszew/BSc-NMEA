@@ -24,7 +24,8 @@ export default function MainView() {
     const mwv = "$WIMWV,216.4,T,35.0,N,A*12"
     const mwv2 = "$WIMWV,142.0,R,25.4,N,A*17"
     const mwd = "$WIMWD,216.4,T,216.4,M,35.0,N,18.0,M*55"
-    const res = parseNmeaSentence(mwd);
+    const rmc = "$GPRMC,200914.708,A,3510.77,S,13828.03,E,11.3,63.0,101219,,,*3B"
+    const res = parseNmeaSentence(rmc);
     console.warn(res);
     return (
         <View style={styles.container}>
