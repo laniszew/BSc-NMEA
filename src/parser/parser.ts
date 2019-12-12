@@ -7,6 +7,7 @@ import { GLLPacket, decodeGLL } from './codecs/GLL';
 import { GSAPacket, decodeGSA } from './codecs/GSA';
 import { MWVPacket, decodeMWV } from './codecs/MWV';
 import { MWDPacket, decodeMWD } from './codecs/MWD';
+import { RMCPacket, decodeRMC } from './codecs/RMC';
 
 const parsers: Object<(x: string) => any> = {
     'x': (x) => parseIntSafe(x),
@@ -26,12 +27,12 @@ const parsers: Object<(x: string) => any> = {
     'yyyyy.yy': (x) => ParseCommonDegrees(x),
     'hhmmss': (x) => moment(x, 'HHmmss').format("HH:mm:ss"),
     'hhmmss.ss': (x) => moment(x, 'HHmmss').format("HH:mm:ss"),
-    'ddmmyy': (x) => moment(x, 'DD-MM-YYYY').format("DD/MM/YYYY"),
+    'ddmmyy': (x) => moment(x, 'DD-MM-YY').format("DD/MM/YYYY"),
     'dd/mm/yy': (x) => ParseDateSlashes(x),
     'dddmm.mmm': (x) => ParseCommonDegrees(x)
 };
 
-export type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket
+type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket
 
 type Decoder = (parts: string[]) => Packet;
 
@@ -40,7 +41,8 @@ const decoders: { [sentenceId: string]: Decoder } = {
     GLL: decodeGLL,
     GSA: decodeGSA,
     MWV: decodeMWV,
-    MWD: decodeMWD
+    MWD: decodeMWD,
+    RMC: decodeRMC
 };
 
 export const parseNmeaSentence = (sentence: string): Packet => {
@@ -57,7 +59,7 @@ export const parseNmeaSentence = (sentence: string): Packet => {
     const sentenceId = SentenceIdentifiers[fields[0].substr(3)];
 
     const formatter = SentencesFormats[sentenceId];
-
+    console.log(formatter)
     const sentenceProperties = formatter.split(',').map((format, index) => {
         if (parsers[format]) {
             return parsers[format](fields[index + 1]);
