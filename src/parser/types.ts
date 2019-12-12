@@ -18,7 +18,7 @@ const SentenceIdentifiers: Object<string> = {
     TTM: 'TTM', TXT: 'TXT', VBW: 'VBW', VDR: 'VDR', VHW: 'VHW', VLW: 'VLW', VPW: 'VPW', VTG: 'VTG',
     VWR: 'VWR', WCV: 'WCV', WDC: 'WDC', WDR: 'WDR', WNC: 'WNC', WPL: 'WPL', XDR: 'XDR', XTE: 'XTE',
     XTR: 'XTR', ZDA: 'ZDA', ZDL: 'ZDL', ZFO: 'ZFO', ZTG: 'ZTG'
-}
+} as const;
 
 const SentencesDescriptions: Object<string> = {
     [SentenceIdentifiers.AAM]: 'Waypoint Arrival Alarm',

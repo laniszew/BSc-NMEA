@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { NmeaConnectorActions } from './nmeaConnectorActions';
 
 export interface INmeaConnectorState {
     connected: boolean,
@@ -7,7 +8,7 @@ export interface INmeaConnectorState {
 
 export interface INmeaConnectorContext {
     state: INmeaConnectorState,
-    dispatch: Dispatch<any>
+    dispatch: Dispatch<NmeaConnectorActions>
 }
 
 export type NmeaConnectorProps = {
