@@ -1,37 +1,24 @@
-/* eslint-disable quote-props */
 import { Object } from '../utils/types';
-import { hexWithPrefixToBytes } from '../utils/convert';
 
-enum TalkerIdentifiers {
-    AG, AP, CD, CR, CS, CT, CV, CX, DE, DF, EC, EP, ER, GL, GP, GN, HC, HE, HN, II, IN, LA, LC, OM, P, RA, SD, SN,
-    TR, SS, TI, VD, DM, VW, WI, YX, ZA, ZC, ZQ, ZV, unknown
+const TalkerIdentifiers: Object<string> =  {
+    AG: 'AG', AP: 'AP', CD: 'CD', CR: 'CR', CS: 'CS', CT: 'CT', CV: 'CV', CX: 'CX', DE: 'DE', DF: 'DF',
+    EC: 'EC', EP: 'EP', ER: 'ER', GL: 'GL', GP: 'GP', GN: 'GN', HC: 'HC', HE: 'HE', HN: 'HN', II: 'II',
+    IN: 'IN', LA: 'LA', LC: 'LC', OM: 'OM', P: 'P', RA: 'RA', SD: 'SD', SN: 'SN', TR: 'TR', SS: 'SS',
+    TI: 'TI', VD: 'VD', DM: 'DM', VW: 'VW', WI: 'WI', YX: 'YX', ZA: 'ZA', ZC: 'ZC', ZQ: 'ZQ', ZV: 'ZV'
 }
 
-enum SentenceIdentifiers {
-    AAM, ALM, APA, APB, ASD, BEC, BOD, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DSC, DSE, DSI, DSR, DTM, FSI, GBS,
-    GGA, GLC, GLL, GRS, GST, GSA, GSV, GTD, GXA, HDG, HDM, HDT, HSC, LCD, MSK, MSS, MWD, MTW, MWV, OLN, OSD, ROO,
-    RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TLL, TRF, TTM, TXT, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV,
-    WDC, WDR, WNC, WPL, XDR, XTE, XTR, ZDA, ZDL, ZFO, ZTG, unknown
+const SentenceIdentifiers: Object<string> = {
+    AAM: 'AAM', ALM: 'ALM', APA: 'APA', APB: 'APB', ASD: 'ASD', BEC: 'BEC', BOD: 'BOD', BWC: 'BWC',
+    BWR: 'BWR', BWW: 'BWW', DBK: 'DBK', DBS: 'DBS', DBT: 'DBT', DCN: 'DCN', DPT: 'DPT', DSC: 'DSC',
+    DSE: 'DSE', DSI: 'DSI', DSR: 'DSR', DTM: 'DTM', FSI: 'FSI', GBS: 'GBS', GGA: 'GGA', GLC: 'GLC',
+    GLL: 'GLL', GRS: 'GRS', GST: 'GST', GSA: 'GSA', GSV: 'GSV', GTD: 'GTD', GXA: 'GXA', HDG: 'HDG',
+    HDM: 'HDM', HDT: 'HDT', HSC: 'HSC', LCD: 'LCD', MSK: 'MSK', MSS: 'MSS', MWD: 'MWD', MTW: 'MTW',
+    MWV: 'MWV', OLN: 'OLN', OSD: 'OSD', ROO: 'ROO', RMA: 'RMA', RMB: 'RMB', RMC: 'RMC', ROT: 'ROT',
+    RPM: 'RPM', RSA: 'RSA', RSD: 'RSD', RTE: 'RTE', SFI: 'SFI', STN: 'STN', TLL: 'TLL', TRF: 'TRF',
+    TTM: 'TTM', TXT: 'TXT', VBW: 'VBW', VDR: 'VDR', VHW: 'VHW', VLW: 'VLW', VPW: 'VPW', VTG: 'VTG',
+    VWR: 'VWR', WCV: 'WCV', WDC: 'WDC', WDR: 'WDR', WNC: 'WNC', WPL: 'WPL', XDR: 'XDR', XTE: 'XTE',
+    XTR: 'XTR', ZDA: 'ZDA', ZDL: 'ZDL', ZFO: 'ZFO', ZTG: 'ZTG'
 }
-enum ManufacturerCodes {
-    AAR, ACE, ACR, ACS, ACT, AGI, AHA, AIP, ALD, AMR, AMT, ANS, ANX, ANZ, APC, APN, APX, AQC, AQD, AQM, ASP, ATE,
-    ATM, ATR, ATV, AVN, AWA, BBL, BBR, BDV, BEC, BGS, BGT, BHE, BHR, BLB, BME, BNI, BNS, BRM, BRY, BTH, BTK, BTS,
-    BXA, CAT, CBN, CCA, CCC, CCL, CCM, CDC, CEC, CHI, CKM, CMA, CMC, CME, CMP, CMS, CMV, CNV, CNX, CPL, CPN, CPS,
-    CPT, CRE, CRO, CRY, CSI, CSM, CST, CSV, CTA, CTB, CTC, CTE, CTL, CNI, CWD, CWV, CYZ, DCC, DEB, DFI, DGC, DME,
-    DMI, DNS, DNT, DPS, DRL, DSC, DYN, DYT, EBC, ECT, EEV, EFC, ELD, EMC, EMS, ENA, ENC, EPM, EPT, ERC, ESA, FDN,
-    FHE, FJN, FMM, FNT, FRC, FTG, FUJ, FEC, FUG, FUR, GAM, GCA, GES, GFC, GIS, GPI, GRM, GSC, GTO, GVE, GVT, HAL,
-    HAR, HIG, HIT, HPK, HRC, HRT, HTI, HUL, HWM, ICO, IFD, IFI, IME, IMI, IMM, IMP, IMT, INM, INT, IRT, IST, ITM,
-    ITR, JAN, JFR, JMT, JRC, JRI, JTC, JTR, KBE, KBM, KLA, KMR, KNG, KOD, KRP, KVH, KYI, LAT, LEC, LMM, LRD, LSE,
-    LSP, LTF, LWR, MCL, MDL, MEC, MEG, MFR, MFW, MGN, MGS, MIE, MIM, MLE, MLN, MLP, MLT, MMB, MME, MMP, MMS, MNI,
-    MNT, MNX, MOT, MPN, MQS, MRC, MRE, MRP, MRR, MRS, MSB, MSE, MSM, MST, MTA, MTG, MTK, MTR, MTS, MUR, MVX, MXX,
-    MES, NAT, NEF, NMR, NGS, NOM, NOV, NSM, NTK, NVC, NVS, NVO, OAR, ODE, ODN, OIN, OKI, OLY, OMN, ORE, OTK, PCE,
-    PCH, PDM, PLA, PLI, PMI, PMP, PRK, PSM, PTC, PTG, PTH, RAC, RAE, RAY, RCA, RCH, RCI, RDI, RDM, REC, RFP, RGC,
-    RGY, RMR, RSL, RSM, RWI, RME, RTN, SAI, SBR, SCR, SEA, SEC, SEP, SFN, SGC, SIG, SIM, SKA, SKP, SLI, SME, SMF,
-    SML, SMI, SNV, SOM, SOV, SPL, SPT, SRD, SRF, SRS, SRT, SSI, STC, STI, STM, SVY, SWI, TBB, TCN, TDL, THR, TLS,
-    TMT, TNL, TRC, TSI, TTK, TTS, TWC, TXI, UME, UNI, UNP, UNF, VAN, VAR, VCM, VEX, VIS, VMR, WAL, WBG, WEC, WHA,
-    WMM, WMR, WNG, WSE, WTC, WST, YAS, any, unknown
-}
-
 
 const SentencesDescriptions: Object<string> = {
     [SentenceIdentifiers.AAM]: 'Waypoint Arrival Alarm',
@@ -135,7 +122,7 @@ const SentencesFormats: Object<string> = {
     [SentenceIdentifiers.DTM]: 'xxx,x,xx.xxxx,x,xx.xxxx,x,c--c,xxx',
     [SentenceIdentifiers.FSI]: 'xxxxxx,xxxxxx,c,x',
     [SentenceIdentifiers.GBS]: 'hhmmss.ss,x.x,x.x,x.x,x.x,x.x,x.x,x.x',
-    [SentenceIdentifiers.GGA]: 'hhmmss.ss,llll.ll,a,yyyyy.yy,a,0=Fix not availible|1=GPS fix|2=DGPS fix,xx,x.x,x.x,M,x.x,M,x.x,xxxx',
+    [SentenceIdentifiers.GGA]: 'hhmmss.ss,llll.ll,a,yyyyy.yy,a,x,xx,x.x,x.x,M,x.x,M,x.x,xxxx',
     [SentenceIdentifiers.GLC]: 'xxxx,x.x,a,x.x,a,x.x,a,x.x,a,x.x,a,x.x,B=Blink|C=Cycle|S=SNR|A=Valid',
     [SentenceIdentifiers.GLL]: 'llll.ll,N=North|S=South,yyyyy.yy,E=East|W=West,hhmmss.ss,A=Valid|V=Invalid,A=Valid|V=Invalid',
     [SentenceIdentifiers.GRS]: 'hhmmss,x,x.x,x.x,x.x,x.x,x.x,x.x,x.x,x.x,x.x,x.x,x.x,x.x',
@@ -192,33 +179,4 @@ const SentencesFormats: Object<string> = {
     [SentenceIdentifiers.ZTG]: 'hhmmss.ss,hhmmss.ss,c--c',
 };
 
-const parsers: Object<(x: string) => any> = {
-    'x': (x) => Number(x),
-    'xx': (x) => Number(x),
-    'xxx': (x) => Number(x),
-    'xxxx': (x) => Number(x),
-    'xxxxx': (x) => Number(x),
-    'xxxxxx': (x) => Number(x),
-    'hh': (x) => parseInt(x, 16),
-    'hhhh': (x) => parseInt(x, 16), // Check if unsigned int is needed here
-    'hhhhhh': (x) => parseInt(x, 16),
-    'hhhhhhhh': (x) => parseInt(x, 16),
-    'h--h': (x) => hexWithPrefixToBytes(x),
-    'x.x': (x) => parseFloat(x),
-    'c--c': (x) => x,
-    'llll.ll': (x) => ParseLatitude(x),
-    'yyyyy.yy': (x) => ParseLongitude(x),
-    'hhmmss': (x) => ParseCommonTime(x),
-    'hhmmss.ss': (x) => ParseCommonTime(x),
-    'ddmmyy': (x) => ParseCommonDate(x),
-    'dd/mm/yy': (x) => ParseDateSlashes(x),
-    'dddmm.mmm': (x) => ParseCommonDegrees(x)
-};
-
-const ParseLatitude = (token: string): Number => {
-    const temp = parseFloat(token);
-    const degree = parseInt(parseInt(temp) / 100);
-    const minutes = parseInt(temp) - degree * 100;
-    const seconds = (temp - parseInt(temp)) * 60;
-    return degree + minutes / 60 + seconds / 3600;
-};
+export { TalkerIdentifiers, SentenceIdentifiers, SentencesDescriptions, SentencesFormats}
