@@ -3,7 +3,7 @@ import { Object } from "../utils/types";
 import { hexWithPrefixToBytes, validateNmeaChecksum, ParseCommonDegrees, parseIntSafe, parseFloatSafe } from "../utils/helpers";
 import { GGAPacket, decodeGGA } from "./codecs/GGA";
 import { TalkerIdentifiers, SentenceIdentifiers, SentencesFormats } from "./types";
-import { GLLPacket, decodeGLL } from './codecs/GGL';
+import { GLLPacket, decodeGLL } from './codecs/GLL';
 import { GSAPacket, decodeGSA } from './codecs/GSA';
 import { MWVPacket, decodeMWV } from './codecs/MWV';
 import { MWDPacket, decodeMWD } from './codecs/MWD';
