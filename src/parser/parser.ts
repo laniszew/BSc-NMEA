@@ -6,6 +6,7 @@ import { TalkerIdentifiers, SentenceIdentifiers, SentencesFormats } from "./type
 import { GLLPacket, decodeGLL } from './codecs/GGL';
 import { GSAPacket, decodeGSA } from './codecs/GSA';
 import { MWVPacket, decodeMWV } from './codecs/MWV';
+import { MWDPacket, decodeMWD } from './codecs/MWD';
 
 const parsers: Object<(x: string) => any> = {
     'x': (x) => parseIntSafe(x),
@@ -30,7 +31,7 @@ const parsers: Object<(x: string) => any> = {
     'dddmm.mmm': (x) => ParseCommonDegrees(x)
 };
 
-type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket
+type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket
 
 type Decoder = (parts: string[]) => Packet;
 
@@ -38,7 +39,8 @@ const decoders: { [sentenceId: string]: Decoder } = {
     GGA: decodeGGA,
     GLL: decodeGLL,
     GSA: decodeGSA,
-    MWV: decodeMWV
+    MWV: decodeMWV,
+    MWD: decodeMWD
 };
 
 export const parseNmeaSentence = (sentence: string): Packet => {
@@ -64,8 +66,9 @@ export const parseNmeaSentence = (sentence: string): Packet => {
             return fields[index + 1]
         }
     });
-
+    console.log(sentenceId)
     const packet = decoders[sentenceId](sentenceProperties);
+    
     packet.talkerId = talkerId;
 
     return packet;

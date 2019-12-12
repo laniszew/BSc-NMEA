@@ -23,7 +23,8 @@ export default function MainView() {
     const gsa = "$GPGSA,A,3,8,11,15,22,,,,,,,,,2.3,2.2,1.5*0B";
     const mwv = "$WIMWV,216.4,T,35.0,N,A*12"
     const mwv2 = "$WIMWV,142.0,R,25.4,N,A*17"
-    const res = parseNmeaSentence(gga);
+    const mwd = "$WIMWD,216.4,T,216.4,M,35.0,N,18.0,M*55"
+    const res = parseNmeaSentence(mwd);
     console.warn(res);
     return (
         <View style={styles.container}>

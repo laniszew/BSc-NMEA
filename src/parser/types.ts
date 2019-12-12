@@ -139,7 +139,7 @@ const SentencesFormats: Object<string> = {
     [SentenceIdentifiers.MSK]: 'xxx.x,xx,xxx,xx,N',
     [SentenceIdentifiers.MSS]: '',
     [SentenceIdentifiers.MTW]: 'x.x,C=C|K=K|F=F',
-    [SentenceIdentifiers.MWD]: '',
+    [SentenceIdentifiers.MWD]: 'x.x,T,x.x,M,x.x,N,x.x,M',
     [SentenceIdentifiers.MWV]: 'x.x,a,x.x,a,A',
     [SentenceIdentifiers.OLN]: 'aa,xxx,xxx,aa,xxx,xxx,aa,xxx,xxx',
     [SentenceIdentifiers.OSD]: 'x.x,A,x.x,a,x.x,a,x.x,x.x,a',
