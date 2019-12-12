@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-color-literals */
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NmeaProvider } from './src/contexts/nmeaContext/nmeaContext';
+import { NmeaConnectorProvider } from './src/contexts/nmeaConnectorContext/nmeaConnectorContext';
 import MainView from './src/MainView/MainView';
 
 const styles = StyleSheet.create({
@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
 
 export default function App() {
     return (
-        <NmeaProvider>
+        <NmeaConnectorProvider>
             <View style={styles.container}>
                 <Text>Init</Text>
                 <MainView />
             </View>
-        </NmeaProvider>
+        </NmeaConnectorProvider>
     );
 }

@@ -28,6 +28,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
     "eslint-plugin-react-native": "^3.7.0",
+    "moment": "^2.24.0",
     "typescript": "^3.6.3"
   },
   "private": true

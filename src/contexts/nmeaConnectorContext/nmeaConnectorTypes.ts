@@ -1,16 +1,16 @@
 import { Dispatch } from 'react';
 
-export interface INmeaState {
+export interface INmeaConnectorState {
     connected: boolean,
     data: any
 }
 
-export interface INmeaContext {
-    state: INmeaState,
+export interface INmeaConnectorContext {
+    state: INmeaConnectorState,
     dispatch: Dispatch<any>
 }
 
-export type NmeaProps = {
+export type NmeaConnectorProps = {
     children: React.ReactNode,
     url?: string
 }
