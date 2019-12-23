@@ -7,18 +7,18 @@ const TalkerIdentifiers: Object<string> =  {
     TI: 'TI', VD: 'VD', DM: 'DM', VW: 'VW', WI: 'WI', YX: 'YX', ZA: 'ZA', ZC: 'ZC', ZQ: 'ZQ', ZV: 'ZV'
 }
 
-const SentenceIdentifiers: Object<string> = {
-    AAM: 'AAM', ALM: 'ALM', APA: 'APA', APB: 'APB', ASD: 'ASD', BEC: 'BEC', BOD: 'BOD', BWC: 'BWC',
-    BWR: 'BWR', BWW: 'BWW', DBK: 'DBK', DBS: 'DBS', DBT: 'DBT', DCN: 'DCN', DPT: 'DPT', DSC: 'DSC',
-    DSE: 'DSE', DSI: 'DSI', DSR: 'DSR', DTM: 'DTM', FSI: 'FSI', GBS: 'GBS', GGA: 'GGA', GLC: 'GLC',
-    GLL: 'GLL', GRS: 'GRS', GST: 'GST', GSA: 'GSA', GSV: 'GSV', GTD: 'GTD', GXA: 'GXA', HDG: 'HDG',
-    HDM: 'HDM', HDT: 'HDT', HSC: 'HSC', LCD: 'LCD', MSK: 'MSK', MSS: 'MSS', MWD: 'MWD', MTW: 'MTW',
-    MWV: 'MWV', OLN: 'OLN', OSD: 'OSD', ROO: 'ROO', RMA: 'RMA', RMB: 'RMB', RMC: 'RMC', ROT: 'ROT',
-    RPM: 'RPM', RSA: 'RSA', RSD: 'RSD', RTE: 'RTE', SFI: 'SFI', STN: 'STN', TLL: 'TLL', TRF: 'TRF',
-    TTM: 'TTM', TXT: 'TXT', VBW: 'VBW', VDR: 'VDR', VHW: 'VHW', VLW: 'VLW', VPW: 'VPW', VTG: 'VTG',
-    VWR: 'VWR', WCV: 'WCV', WDC: 'WDC', WDR: 'WDR', WNC: 'WNC', WPL: 'WPL', XDR: 'XDR', XTE: 'XTE',
-    XTR: 'XTR', ZDA: 'ZDA', ZDL: 'ZDL', ZFO: 'ZFO', ZTG: 'ZTG'
-} as const;
+enum SentenceIdentifiers {
+    AAM= 'AAM', ALM= 'ALM', APA= 'APA', APB= 'APB', ASD= 'ASD', BEC= 'BEC', BOD= 'BOD', BWC= 'BWC',
+    BWR= 'BWR', BWW= 'BWW', DBK= 'DBK', DBS= 'DBS', DBT= 'DBT', DCN= 'DCN', DPT= 'DPT', DSC= 'DSC',
+    DSE= 'DSE', DSI= 'DSI', DSR= 'DSR', DTM= 'DTM', FSI= 'FSI', GBS= 'GBS', GGA= 'GGA', GLC= 'GLC',
+    GLL= 'GLL', GRS= 'GRS', GST= 'GST', GSA= 'GSA', GSV= 'GSV', GTD= 'GTD', GXA= 'GXA', HDG= 'HDG',
+    HDM= 'HDM', HDT= 'HDT', HSC= 'HSC', LCD= 'LCD', MSK= 'MSK', MSS= 'MSS', MWD= 'MWD', MTW= 'MTW',
+    MWV= 'MWV', OLN= 'OLN', OSD= 'OSD', ROO= 'ROO', RMA= 'RMA', RMB= 'RMB', RMC= 'RMC', ROT= 'ROT',
+    RPM= 'RPM', RSA= 'RSA', RSD= 'RSD', RTE= 'RTE', SFI= 'SFI', STN= 'STN', TLL= 'TLL', TRF= 'TRF',
+    TTM= 'TTM', TXT= 'TXT', VBW= 'VBW', VDR= 'VDR', VHW= 'VHW', VLW= 'VLW', VPW= 'VPW', VTG= 'VTG',
+    VWR= 'VWR', WCV= 'WCV', WDC= 'WDC', WDR= 'WDR', WNC= 'WNC', WPL= 'WPL', XDR= 'XDR', XTE= 'XTE',
+    XTR= 'XTR', ZDA= 'ZDA', ZDL= 'ZDL', ZFO= 'ZFO', ZTG= 'ZTG'
+};
 
 const SentencesDescriptions: Object<string> = {
     [SentenceIdentifiers.AAM]: 'Waypoint Arrival Alarm',

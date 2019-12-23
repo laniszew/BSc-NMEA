@@ -1,7 +1,7 @@
 import { SentenceIdentifiers, SentencesDescriptions } from "../types";
 
 export interface MWDPacket {
-    sentenceId: string; 
+    sentenceId: SentenceIdentifiers.MWD;
     sentenceName: string;
     talkerId?: string;
     windDirTrue: number;

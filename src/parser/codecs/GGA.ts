@@ -5,7 +5,7 @@ const FixTypes: FixType[] = [ "none", "fix", "delta", "pps", "rtk", "frtk", "est
 
 
 export interface GGAPacket {
-    sentenceId: string;
+    sentenceId: SentenceIdentifiers.GGA;
     sentenceName?: string;
     talkerId?: string;
     time: string;

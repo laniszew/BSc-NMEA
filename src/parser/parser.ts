@@ -2,7 +2,7 @@ import moment from 'moment';
 import { Object } from "../utils/types";
 import { hexWithPrefixToBytes, validateNmeaChecksum, ParseCommonDegrees, parseIntSafe, parseFloatSafe } from "../utils/helpers";
 import { GGAPacket, decodeGGA } from "./codecs/GGA";
-import { TalkerIdentifiers, SentenceIdentifiers, SentencesFormats } from "./types";
+import { TalkerIdentifiers, SentenceIdentifiers, SentencesFormats, SentenceIds } from "./types";
 import { GLLPacket, decodeGLL } from './codecs/GLL';
 import { GSAPacket, decodeGSA } from './codecs/GSA';
 import { MWVPacket, decodeMWV } from './codecs/MWV';
@@ -32,17 +32,17 @@ const parsers: Object<(x: string) => any> = {
     'dddmm.mmm': (x) => ParseCommonDegrees(x)
 };
 
-type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket
 
-type Decoder = (parts: string[]) => Packet;
 
-const decoders: { [sentenceId: string]: Decoder } = {
-    GGA: decodeGGA,
-    GLL: decodeGLL,
-    GSA: decodeGSA,
-    MWV: decodeMWV,
-    MWD: decodeMWD,
-    RMC: decodeRMC
+export type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket
+
+const decoders = {
+    [SentenceIdentifiers.GGA]: decodeGGA,
+    [SentenceIdentifiers.GLL]: decodeGLL,
+    [SentenceIdentifiers.GSA]: decodeGSA,
+    [SentenceIdentifiers.MWV]: decodeMWV,
+    [SentenceIdentifiers.MWD]: decodeMWD,
+    [SentenceIdentifiers.RMC]: decodeRMC
 };
 
 export const parseNmeaSentence = (sentence: string): Packet => {
@@ -59,7 +59,6 @@ export const parseNmeaSentence = (sentence: string): Packet => {
     const sentenceId = SentenceIdentifiers[fields[0].substr(3)];
 
     const formatter = SentencesFormats[sentenceId];
-    console.log(formatter)
     const sentenceProperties = formatter.split(',').map((format, index) => {
         if (parsers[format]) {
             return parsers[format](fields[index + 1]);
@@ -68,7 +67,6 @@ export const parseNmeaSentence = (sentence: string): Packet => {
             return fields[index + 1]
         }
     });
-    console.log(sentenceId)
     const packet = decoders[sentenceId](sentenceProperties);
 
     packet.talkerId = talkerId;

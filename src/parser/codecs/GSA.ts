@@ -3,9 +3,13 @@ import { SentenceIdentifiers, SentencesDescriptions } from "../types";
 export type ThreeDFixType = "unknown" | "none" | "2D" | "3D";
 const ThreeDFixTypes: ThreeDFixType[] = [ "unknown", "none", "2D", "3D" ];
 
+export class BasePacket {
 
-export interface GSAPacket {
-    sentenceId: string;
+}
+
+
+export interface GSAPacket extends BasePacket {
+    sentenceId:  SentenceIdentifiers.GSA;
     sentenceName: string;
     talkerId?: string;
     selectionMode: "automatic" | "manual";

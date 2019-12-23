@@ -18,3 +18,5 @@ export interface IPositionContext {
 export enum ActionTypes {
     SET_FRAME_DATA = 'SET_FRAME_DATA'
 }
+
+export type PositionPacket = GGAPacket | GLLPacket | GSAPacket;

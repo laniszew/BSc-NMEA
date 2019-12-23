@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useCallback } from 'react';
+import React, { createContext } from 'react';
 import { IPositionContext, IPositionState, ActionTypes } from './positionTypes';
 import { PositionActions } from './positionActions';
 
 
 const PositionContext = createContext<IPositionContext | undefined>(undefined);
 
-const nmeaReducer = (state: IPositionState, action: PositionActions): IPositionState => {
+const positionReducer = (state: IPositionState, action: PositionActions): IPositionState => {
     switch (action.type) {
         case ActionTypes.SET_FRAME_DATA: {
             return { ...state, [action.payload.frameType]: action.payload.frameData};
@@ -23,7 +23,7 @@ const initialState: IPositionState = {
 };
 
 const PositionProvider = ({ children }) => {
-    const [state, dispatch] = React.useReducer(nmeaReducer, initialState);
+    const [state, dispatch] = React.useReducer(positionReducer, initialState);
     return (
         <PositionContext.Provider value={{ state, dispatch }}>
             {children}
@@ -34,7 +34,7 @@ const PositionProvider = ({ children }) => {
 const usePosition = (): IPositionContext => {
     const context = React.useContext(PositionContext);
     if (context === undefined) {
-        throw new Error('usePosition must be used within a NmeaProvider');
+        throw new Error('usePosition must be used within a PositionProvider');
     }
     return context;
 };

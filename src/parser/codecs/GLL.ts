@@ -1,7 +1,7 @@
 import { SentenceIdentifiers, SentencesDescriptions } from "../types";
 
 export interface GLLPacket {
-    sentenceId: string;
+    sentenceId: SentenceIdentifiers.GLL;
     sentenceName: string;
     talkerId?: string;
     latitude: string;
@@ -14,8 +14,8 @@ export interface GLLPacket {
 
 export const decodeGLL = (fields: Array<string | number>): GLLPacket => {
     return {
-        sentenceId: SentenceIdentifiers.GGA,
-        sentenceName: SentencesDescriptions.GGA,
+        sentenceId: SentenceIdentifiers.GLL,
+        sentenceName: SentencesDescriptions.GLL,
         latitude: `${fields[0]} ${fields[1]}`,
         longitude: `${fields[2]} ${fields[3]}`,
         time: fields[4] as string,

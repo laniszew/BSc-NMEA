@@ -28,7 +28,7 @@ const initialState: INmeaConnectorState = {
 const NmeaConnectorProvider = ({ children, url }: NmeaConnectorProps) => {
     const [state, dispatch] = React.useReducer(nmeaReducer, initialState);
     const connectWebsocket = useCallback(() => {
-        const ws = new WebSocket(url || 'ws://82.145.79.40:88');
+        const ws = new WebSocket(url || 'ws://192.168.1.11:88');
 
         ws.onopen = () => {
             dispatch(NmeaConnectorActions.setConnected(true));
@@ -39,6 +39,7 @@ const NmeaConnectorProvider = ({ children, url }: NmeaConnectorProps) => {
         };
 
         ws.onerror = (error) => {
+            console.error('connection error: ', error)
             dispatch(NmeaConnectorActions.setConnected(false));
             ws.close();
         };

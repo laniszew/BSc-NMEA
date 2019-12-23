@@ -2,7 +2,7 @@ import { SentenceIdentifiers, SentencesDescriptions } from "../types";
 
 // watch reference, there is a need to display both relative and true wind based on reference
 export interface MWVPacket {
-    sentenceId: string;
+    sentenceId:  SentenceIdentifiers.MWV;
     sentenceName: string;
     talkerId?: string;
     windAngle: number;

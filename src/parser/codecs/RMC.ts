@@ -1,5 +1,4 @@
 import { SentenceIdentifiers, SentencesDescriptions } from "../types";
-import { string } from "prop-types";
 
 // RMC - NMEA has its own version of essential gps pvt (position, velocity, time) data. It is called RMC, The Recommended Minimum, which will look similar to:
 
@@ -18,18 +17,18 @@ import { string } from "prop-types";
 //      *6A          The checksum data, always begins with *
 
 export interface RMCPacket {
-    sentenceId: string;
+    sentenceId: SentenceIdentifiers.RMC;
     sentenceName: string;
     talkerId?: string;
     time: string;
     status: "active" | "void";
-    latitude: number;
-    longitude: number;
+    latitude: string;
+    longitude: string;
     speedKnots: number;
     trackTrue: number;
     date: string;
     variation: number;
-    variationPole: "" | "E" | "W";
+    variationPole: "west" | "east";
     faaMode?: string;
 
 }
@@ -52,14 +51,11 @@ export interface RMCPacket {
 
 
 export const decodeRMC = (fields: Array<string | number>): RMCPacket => {
-    console.log(fields)
     return {
         sentenceId: SentenceIdentifiers.RMC,
         sentenceName: SentencesDescriptions.RMC,
         time: fields[0] as string,
         status: fields[1] === "A" ? "active" : "void",
-        // latitude: fields[2] as number,
-        // longitude: fields[3] as number,
         latitude: `${fields[2]} ${fields[3]}`,
         longitude: `${fields[4]} ${fields[5]}`,
         speedKnots: fields[6] as number,
