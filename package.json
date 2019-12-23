@@ -12,7 +12,9 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "^0.11.7"
+    "react-native-elements": "^1.2.7",
+    "react-native-web": "^0.11.7",
+    "react-native-maps": "~0.25.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
@@ -27,6 +29,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
     "eslint-plugin-react-native": "^3.7.0",
+    "moment": "^2.24.0",
     "typescript": "^3.6.3"
   },
   "private": true

@@ -1,10 +1,10 @@
 import { ActionsUnion } from '../../utils/types';
-import { ActionTypes } from './nmeaTypes';
+import { ActionTypes } from './nmeaConnectorTypes';
 import { createAction } from '../../utils/makeAction';
 
-export const NmeaActions = {
+export const NmeaConnectorActions = {
     setConnected: (flag: boolean) => createAction(ActionTypes.SET_CONNECTED, flag),
     setData: (data: any) => createAction(ActionTypes.SET_DATA, data)
 };
 
-export type NmeaActions = ActionsUnion<typeof NmeaActions>;
+export type NmeaConnectorActions = ActionsUnion<typeof NmeaConnectorActions>;
