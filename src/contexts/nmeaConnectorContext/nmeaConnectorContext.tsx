@@ -14,6 +14,9 @@ const nmeaReducer = (state: INmeaConnectorState, action: NmeaConnectorActions): 
         case ActionTypes.SET_DATA: {
             return { ...state, data: action.payload };
         }
+        case ActionTypes.SET_URL: {
+            return { ...state, url: action.payload };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action}`);
         }
@@ -22,13 +25,14 @@ const nmeaReducer = (state: INmeaConnectorState, action: NmeaConnectorActions): 
 
 const initialState: INmeaConnectorState = {
     connected: false,
-    data: {}
+    data: {},
+    url: 'ws://192.168.1.11:80'
 };
 
-const NmeaConnectorProvider = ({ children, url }: NmeaConnectorProps) => {
+const NmeaConnectorProvider = ({ children }: NmeaConnectorProps) => {
     const [state, dispatch] = React.useReducer(nmeaReducer, initialState);
     const connectWebsocket = useCallback(() => {
-        const ws = new WebSocket(url || 'ws://192.168.1.11:88');
+        const ws = new WebSocket(state.url);
 
         ws.onopen = () => {
             dispatch(NmeaConnectorActions.setConnected(true));
@@ -39,7 +43,7 @@ const NmeaConnectorProvider = ({ children, url }: NmeaConnectorProps) => {
         };
 
         ws.onerror = (error) => {
-            console.error('connection error: ', error)
+            console.warn(error);
             dispatch(NmeaConnectorActions.setConnected(false));
             ws.close();
         };
@@ -51,8 +55,8 @@ const NmeaConnectorProvider = ({ children, url }: NmeaConnectorProps) => {
 
         return (() => {
             ws.close();
-        })
-    }, [url]);
+        });
+    }, [state.url]);
 
     useEffect(() => {
         connectWebsocket();

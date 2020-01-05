@@ -3,7 +3,8 @@ import { NmeaConnectorActions } from './nmeaConnectorActions';
 
 export interface INmeaConnectorState {
     connected: boolean,
-    data: any
+    data: any,
+    url: string
 }
 
 export interface INmeaConnectorContext {
@@ -13,10 +14,10 @@ export interface INmeaConnectorContext {
 
 export type NmeaConnectorProps = {
     children: React.ReactNode,
-    url?: string
 }
 
 export enum ActionTypes {
     SET_CONNECTED = 'SET_CONNECTED',
-    SET_DATA = 'SET_DATA'
+    SET_DATA = 'SET_DATA',
+    SET_URL = 'SET_URL'
 }
