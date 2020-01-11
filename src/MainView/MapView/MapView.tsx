@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react-native/no-color-literals */
 import React, {
     useState, useEffect, useCallback, useMemo
@@ -17,9 +19,10 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import ShipIcon from '../../../assets/Cargo_Ship-medium.png';
+import ShipIcon from '../../../assets/ship2.png';
 import LocationIcon from '../../../assets/location-icon.png';
 import { IPositionState } from '../../contexts/positionContext/positionTypes';
+import { IUnitState } from '../../contexts/unitContext/unitTypes';
 
 const styles = StyleSheet.create({
     container: {
@@ -29,9 +32,6 @@ const styles = StyleSheet.create({
     },
     coordinates: {
         flex: 1,
-     /*    alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center', */
         position: 'absolute',
         bottom: 60,
         left: 10
@@ -72,38 +72,55 @@ const MapState = {
 type Props = {
   screenProps: {
     position: IPositionState;
+    unit: IUnitState
   }
 };
 
 const LATITUDE_DELTA = 0.5;
 const LONGITUDE_DELTA = 0.5;
 
-const Map = ({ screenProps: { position } }: Props) => {
-    // console.warn(position);
+const getLatitude = (latitude: string | null): number => {
+    if (!latitude) {
+        return 0;
+    }
+    const numericValue = parseFloat(latitude.split(' ')[0]);
+    console.log(latitude);
+    return latitude.endsWith('S') ? -numericValue : numericValue;
+};
+
+const getLongitude = (longitude: string | null): number => {
+    if (!longitude) {
+        return 0;
+    }
+    const numericValue = parseFloat(longitude.split(' ')[0]);
+    return longitude.endsWith('W') ? -numericValue : numericValue;
+}
+
+const Map = ({ screenProps: { position, unit } }: Props) => {
     const [state, setState] = useState(MapState);
     const [isTracking, setIsTracking] = useState(true);
-    const unit = useMemo(() => ({
-        latitude: parseFloat(position.GGA?.latitude.split(' ')[0]),
-        longitude: parseFloat(position.GGA?.longitude.split(' ')[0])
+    const coordinates = useMemo(() => ({
+        latitude: getLatitude(position.GGA?.latitude),
+        longitude: getLongitude(position.GGA?.longitude)
     }), [position.GGA]) as LatLng;
 
     useEffect(() => {
         const coordinate = {
-            latitude: isNaN(unit.latitude) ? 0 : unit.latitude,
-            longitude: isNaN(unit.longitude) ? 0 : unit.longitude,
+            latitude: isNaN(coordinates.latitude) ? 0 : coordinates.latitude,
+            longitude: isNaN(coordinates.longitude) ? 0 : coordinates.longitude,
             latitudeDelta: 0,
             longitudeDelta: 0
         };
         setState((previousState) => ({
             ...previousState,
-            latitude: unit.latitude,
-            longitude: unit.longitude,
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
             routeCoordinates: coordinate.latitude !== 0 && coordinate.longitude !== 0 ? previousState.routeCoordinates.concat(coordinate) : [],
             coordinate: new AnimatedRegion(coordinate as Region)
         }));
 
         // state.coordinate.timing(coordinate).start();
-    }, [unit]);
+    }, [coordinates]);
 
     const getMapRegion = useCallback(() => ({
         latitude: isNaN(state.latitude) ? 0 : state.latitude,
@@ -114,11 +131,10 @@ const Map = ({ screenProps: { position } }: Props) => {
 
     const positionMap = useCallback(() => (isTracking ? getMapRegion() : null), [getMapRegion, isTracking]);
 
-
     return (
         <View style={styles.container}>
             <MapView style={styles.mapStyle} region={positionMap()} onTouchMove={() => setIsTracking(false)}>
-                {!isNaN(unit.longitude) && <MarkerAnimated coordinate={state.coordinate} icon={ShipIcon} />}
+                {!isNaN(coordinates.longitude) && <MarkerAnimated coordinate={state.coordinate} icon={ShipIcon} flat rotation={unit.VHW?.degreesTrue || 0} />}
                 <Polyline coordinates={state.routeCoordinates} strokeWidth={5} />
             </MapView>
             <View style={styles.coordinates}>

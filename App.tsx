@@ -1,11 +1,13 @@
+/* eslint-disable no-console */
 /* eslint-disable react-native/no-color-literals */
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NmeaConnectorProvider } from './src/contexts/nmeaConnectorContext/nmeaConnectorContext';
 import MainView from './src/MainView/MainView';
 import { PositionProvider } from './src/contexts/positionContext/positionContext';
 import { UnitProvider } from './src/contexts/unitContext/unitContext';
 
+console.disableYellowBox = true;
 
 const styles = StyleSheet.create({
     container: {

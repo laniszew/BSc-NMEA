@@ -43,7 +43,6 @@ export function MainView() {
         if (nmeaConnector.state.connected && Object.keys(nmeaConnector.state.data).length > 0) {
             const frames = nmeaConnector.state.data.split(/\r?\n/);
             frames.map((frame: string) => {
-                console.warn(frame);
                 try {
                     const response = parseNmeaSentence(frame);
                     if (isPositionPacket(response)) {

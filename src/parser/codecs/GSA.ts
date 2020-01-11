@@ -9,7 +9,7 @@ export interface GSAPacket extends BasePacket {
     talkerId?: string;
     selectionMode: 'automatic' | 'manual';
     fixMode: ThreeDFixType;
-    satellites: number[];
+    satellites: string[];
     PDOP: number;
     HDOP: number;
     VDOP: number;
@@ -17,11 +17,11 @@ export interface GSAPacket extends BasePacket {
 
 
 export const decodeGSA = (fields: Array<string | number>): GSAPacket => {
-    const sats: number[] = [];
+    const sats: string[] = [];
 
     for (let i = 2; i < 14; i++) {
         if (fields[i]) {
-            sats.push(+fields[i]);
+            sats.push(`${+fields[i]} `);
         }
     }
 
