@@ -84,7 +84,6 @@ const getLatitude = (latitude: string | null): number => {
         return 0;
     }
     const numericValue = parseFloat(latitude.split(' ')[0]);
-    console.log(latitude);
     return latitude.endsWith('S') ? -numericValue : numericValue;
 };
 

@@ -11,6 +11,8 @@ import { MWVPacket, decodeMWV } from './codecs/MWV';
 import { MWDPacket, decodeMWD } from './codecs/MWD';
 import { RMCPacket, decodeRMC } from './codecs/RMC';
 import { VHWPacket, decodeVHW } from './codecs/VHW';
+import { DBTPacket, decodeDBT } from './codecs/DBT';
+import { MTWPacket, decodeMTW } from './codecs/MTW';
 
 const parsers: Object<(x: string) => any> = {
     x: (x) => parseIntSafe(x),
@@ -36,7 +38,7 @@ const parsers: Object<(x: string) => any> = {
 };
 
 
-export type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket | VHWPacket
+export type Packet = GGAPacket | GLLPacket | GSAPacket | MWVPacket | MWDPacket | RMCPacket | VHWPacket | DBTPacket | MTWPacket
 
 const decoders = {
     [SentenceIdentifiers.GGA]: decodeGGA,
@@ -45,7 +47,9 @@ const decoders = {
     [SentenceIdentifiers.MWV]: decodeMWV,
     [SentenceIdentifiers.MWD]: decodeMWD,
     [SentenceIdentifiers.RMC]: decodeRMC,
-    [SentenceIdentifiers.VHW]: decodeVHW
+    [SentenceIdentifiers.VHW]: decodeVHW,
+    [SentenceIdentifiers.DBT]: decodeDBT,
+    [SentenceIdentifiers.MTW]: decodeMTW
 };
 
 export const parseNmeaSentence = (sentence: string): Packet => {

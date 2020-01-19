@@ -1,11 +1,47 @@
 import { Object } from '../utils/types';
 
-const TalkerIdentifiers: Object<string> =  {
-    AG: 'AG', AP: 'AP', CD: 'CD', CR: 'CR', CS: 'CS', CT: 'CT', CV: 'CV', CX: 'CX', DE: 'DE', DF: 'DF',
-    EC: 'EC', EP: 'EP', ER: 'ER', GL: 'GL', GP: 'GP', GN: 'GN', HC: 'HC', HE: 'HE', HN: 'HN', II: 'II',
-    IN: 'IN', LA: 'LA', LC: 'LC', OM: 'OM', P: 'P', RA: 'RA', SD: 'SD', SN: 'SN', TR: 'TR', SS: 'SS',
-    TI: 'TI', VD: 'VD', DM: 'DM', VW: 'VW', WI: 'WI', YX: 'YX', ZA: 'ZA', ZC: 'ZC', ZQ: 'ZQ', ZV: 'ZV'
-}
+const TalkerIdentifiers: Object<string> = {
+    AG: 'AG',
+    AP: 'AP',
+    CD: 'CD',
+    CR: 'CR',
+    CS: 'CS',
+    CT: 'CT',
+    CV: 'CV',
+    CX: 'CX',
+    DE: 'DE',
+    DF: 'DF',
+    EC: 'EC',
+    EP: 'EP',
+    ER: 'ER',
+    GL: 'GL',
+    GP: 'GP',
+    GN: 'GN',
+    HC: 'HC',
+    HE: 'HE',
+    HN: 'HN',
+    II: 'II',
+    IN: 'IN',
+    LA: 'LA',
+    LC: 'LC',
+    OM: 'OM',
+    P: 'P',
+    RA: 'RA',
+    SD: 'SD',
+    SN: 'SN',
+    TR: 'TR',
+    SS: 'SS',
+    TI: 'TI',
+    VD: 'VD',
+    DM: 'DM',
+    VW: 'VW',
+    WI: 'WI',
+    YX: 'YX',
+    ZA: 'ZA',
+    ZC: 'ZC',
+    ZQ: 'ZQ',
+    ZV: 'ZV'
+};
 
 enum SentenceIdentifiers {
     AAM= 'AAM', ALM= 'ALM', APA= 'APA', APB= 'APB', ASD= 'ASD', BEC= 'BEC', BOD= 'BOD', BWC= 'BWC',
@@ -179,4 +215,6 @@ const SentencesFormats: Object<string> = {
     [SentenceIdentifiers.ZTG]: 'hhmmss.ss,hhmmss.ss,c--c',
 };
 
-export { TalkerIdentifiers, SentenceIdentifiers, SentencesDescriptions, SentencesFormats}
+export {
+    TalkerIdentifiers, SentenceIdentifiers, SentencesDescriptions, SentencesFormats
+};
