@@ -1,6 +1,7 @@
 /* eslint-disable  */
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect'
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useNmeaConnector } from '../contexts/nmeaConnectorContext/nmeaConnectorContext';
 import { parseNmeaSentence } from '../parser/parser';
 import { usePosition } from '../contexts/positionContext/positionContext';
@@ -9,7 +10,7 @@ import { isPositionPacket } from '../contexts/positionContext/utils';
 import { useUnit } from '../contexts/unitContext/unitContext';
 import { isUnitPacket } from '../contexts/unitContext/utils';
 import { UnitActions } from '../contexts/unitContext/unitActions';
-import Map from './MapView/MapView';
+import Navigator from '../Navigator/Navigator';
 
 const styles = StyleSheet.create({
     container: {
@@ -17,13 +18,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    connectionString: {
-        fontWeight: "700",
-        fontSize: 16
+    screensContainer: {
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     }
 });
 
-export default function MainView() {
+export function MainView() {
     const nmeaConnector = useNmeaConnector();
     const position = usePosition();
     const unit = useUnit();
@@ -37,8 +39,8 @@ export default function MainView() {
     const rmc = "$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A"
 
 
-    useEffect(() => {
-        if (nmeaConnector.state.connected && nmeaConnector.state.data) {
+    useDeepCompareEffect(() => {
+        if (nmeaConnector.state.connected && Object.keys(nmeaConnector.state.data).length > 0) {
             const frames = nmeaConnector.state.data.split(/\r?\n/);
             frames.map((frame: string) => {
                 try {
@@ -55,14 +57,21 @@ export default function MainView() {
                 }
             })
         }
-    }, [nmeaConnector.state.data])
+    }, [nmeaConnector.state])
 
     return (
         <View style={styles.container}>
-            <Map />
-           {/*  <Text style={styles.connectionString}>{`Connected: ${nmeaConnector.state.connected}`}</Text>
-            <Text>Data: {JSON.stringify(nmeaConnector.state.data)}</Text> */}
+            <View style={styles.screensContainer}>
+                <Navigator screenProps={{
+                     position: position.state,
+                     unit: unit.state,
+                     isConnected: nmeaConnector.state.connected,
+                     url: nmeaConnector.state.url,
+                     connectorDispatch: nmeaConnector.dispatch
+                     }} />
+            </View>
         </View>
     );
 }
 
+export default MainView;
